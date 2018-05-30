@@ -44,6 +44,10 @@ public class MyMenuBar extends JMenuBar{
 			menuItem.addActionListener(controller);
 			menu.add(menuItem);
 		}
+		JMenuItem menuItem = new JMenuItem("others...");
+		menuItem.setName("other");
+		menuItem.addActionListener(controller);
+		menu.add(menuItem);
 	}
 	
 	public void setTypeItems(JMenu menu) {

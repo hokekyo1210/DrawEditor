@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.JColorChooser;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
@@ -36,8 +37,13 @@ public class MenuBarController implements ActionListener{
 	}
 	
 	public void actionPerformedFromColor(ActionEvent e, JMenuItem menuItem) {
-		int colorIndex = Integer.parseInt(menuItem.getName());
-		Color color = MyColors.getColorFromIndex(colorIndex);
+		Color color;
+		if(menuItem.getName().equalsIgnoreCase("other")) {
+			color = JColorChooser.showDialog(menuItem, "Choose Color!", Color.WHITE);
+		}else {
+			int colorIndex = Integer.parseInt(menuItem.getName());
+			color = MyColors.getColorFromIndex(colorIndex);
+		}
 		drawModel.setCurrentColor(color);
 	}
 	

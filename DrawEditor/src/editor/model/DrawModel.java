@@ -63,7 +63,6 @@ public class DrawModel extends Observable {
 
 	public void reshapeFigure(int x1, int y1, int x2, int y2) {
 		if (drawingFigure != null) {
-			System.out.println("reshape:"+x1+" "+y1);
 			drawingFigure.reshape(x1, y1, x2, y2);
 			setChanged();
 			notifyObservers();
