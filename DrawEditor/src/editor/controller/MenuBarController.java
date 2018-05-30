@@ -3,8 +3,10 @@ package editor.controller;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 
 import javax.swing.JColorChooser;
+import javax.swing.JFileChooser;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
@@ -28,12 +30,39 @@ public class MenuBarController implements ActionListener{
 		JMenuItem menuItem = (JMenuItem) e.getSource();
 		JMenu parent = (JMenu)((JPopupMenu)menuItem.getParent()).getInvoker();
 		String parentType = parent.getText();
-		if(parentType.equalsIgnoreCase("Color")) {
+		if(parentType.equalsIgnoreCase("File")) {
+			actionPerformedFromFile(e, menuItem);
+		}else if(parentType.equalsIgnoreCase("Color")) {
 			actionPerformedFromColor(e, menuItem);
 		}else if(parentType.equalsIgnoreCase("Type")) {
 			actionPerformedFromFigureType(e,menuItem);
 		}
 		
+	}
+	
+	public void actionPerformedFromFile(ActionEvent e, JMenuItem menuItem) {
+		String itemName = menuItem.getText();
+		JFileChooser fileChooser = new JFileChooser();
+		
+		if(itemName.equalsIgnoreCase("open")) {
+			int selected = fileChooser.showOpenDialog(null);
+			if(selected != JFileChooser.APPROVE_OPTION)return;
+			File targetFile = fileChooser.getSelectedFile();
+			try {
+				drawModel.loadFigures(targetFile);
+			} catch (Exception e1) {
+				e1.printStackTrace();
+			}
+		}else if(itemName.equalsIgnoreCase("save")) {
+			int selected = fileChooser.showSaveDialog(null);
+			if(selected != JFileChooser.APPROVE_OPTION)return;
+			File targetFile = fileChooser.getSelectedFile();
+			try {
+				drawModel.saveAllFigures(targetFile);
+			} catch (Exception e1) {
+				e1.printStackTrace();
+			}
+		}
 	}
 	
 	public void actionPerformedFromColor(ActionEvent e, JMenuItem menuItem) {

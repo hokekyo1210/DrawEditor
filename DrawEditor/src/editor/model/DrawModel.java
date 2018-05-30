@@ -1,8 +1,18 @@
 package editor.model;
 
 import java.awt.Color;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutput;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.Observable;
+
+import javax.swing.JFileChooser;
 
 import editor.model.Figure;
 import editor.model.MyFigureTypes.FigureType;
@@ -34,6 +44,21 @@ public class DrawModel extends Observable {
 	}
 	public void setCurrentFigureType(FigureType figureType) {
 		this.currentFigureType = figureType;
+	}
+	
+	public void saveAllFigures(File file) throws Exception {
+		ObjectOutput out = new ObjectOutputStream(new FileOutputStream(file));
+		out.writeObject(fig);
+		out.flush();
+		out.close();
+	}
+	
+	public void loadFigures(File file) throws Exception{
+		ObjectInputStream in=new ObjectInputStream(new FileInputStream(file));
+		fig = (ArrayList<Figure>)in.readObject();
+		in.close();
+		setChanged();
+		notifyObservers();
 	}
 
 	public void createFigure(int x, int y) {

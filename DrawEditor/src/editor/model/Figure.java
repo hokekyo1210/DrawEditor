@@ -2,8 +2,9 @@ package editor.model;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.io.Serializable;
 
-public class Figure {
+public class Figure implements Serializable{
 	protected int x, y, width, height;
 	protected Color color;
 

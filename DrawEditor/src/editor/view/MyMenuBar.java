@@ -26,12 +26,22 @@ public class MyMenuBar extends JMenuBar{
 		JMenu menu2 = new JMenu("Color");
 		JMenu menu3 = new JMenu("Type");
 		
+		setFileItems(menu1);
 		setColorItems(menu2);
 		setTypeItems(menu3);
 		
 		this.add(menu1);
 		this.add(menu2);
 		this.add(menu3);
+	}
+	
+	public void setFileItems(JMenu menu) {
+		JMenuItem item1 = new JMenuItem("Open");
+		JMenuItem item2 = new JMenuItem("Save");
+		item1.addActionListener(controller);
+		item2.addActionListener(controller);
+		menu.add(item1);
+		menu.add(item2);
 	}
 	
 	public void setColorItems(JMenu menu) {
