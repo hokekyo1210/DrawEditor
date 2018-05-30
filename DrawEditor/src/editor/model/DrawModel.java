@@ -25,6 +25,10 @@ public class DrawModel extends Observable {
 	public Figure getFigure(int idx) {
 		return fig.get(idx);
 	}
+	
+	public void setCurrentColor(Color color) {
+		this.currentColor = color;
+	}
 
 	public void createFigure(int x, int y) {
 		Figure f = new RectangleFigure(x, y, 0, 0, currentColor);
