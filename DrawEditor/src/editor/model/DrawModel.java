@@ -5,17 +5,20 @@ import java.util.ArrayList;
 import java.util.Observable;
 
 import editor.model.Figure;
+import editor.model.MyFigureTypes.FigureType;
 import editor.model.RectangleFigure;
 
 public class DrawModel extends Observable {
 	protected ArrayList<Figure> fig;
 	protected Figure drawingFigure;
 	protected Color currentColor;
+	protected FigureType currentFigureType;
 
 	public DrawModel() {
 		fig = new ArrayList<Figure>();
 		drawingFigure = null; // null は定数．C言語のNULLと同じで，何も入っていないという意味．
 		currentColor = Color.red; // 色はとりあえず赤で固定．容易に変更可能に拡張できます．
+		currentFigureType = FigureType.RECTANGLE;
 	}
 
 	public ArrayList<Figure> getFigures() {
@@ -29,9 +32,29 @@ public class DrawModel extends Observable {
 	public void setCurrentColor(Color color) {
 		this.currentColor = color;
 	}
+	public void setCurrentFigureType(FigureType figureType) {
+		this.currentFigureType = figureType;
+	}
 
 	public void createFigure(int x, int y) {
-		Figure f = new RectangleFigure(x, y, 0, 0, currentColor);
+		Figure f;
+		switch (currentFigureType) {///図形の形をセットする
+			case RECTANGLE:
+				f = new RectangleFigure(x, y, 0, 0, currentColor);
+				break;
+			case CIRCLE:
+				f = new CircleFigure(x, y, 0, 0, currentColor);
+				break;
+			case TRIANGLE:
+				f = new TriangleFigure(x, y, 0, 0, currentColor);
+				break;
+			case LINE:
+				f = new LineFigure(x, y, 0, 0, currentColor);
+				break;
+			default:
+				return;
+		}
+		
 		fig.add(f);
 		drawingFigure = f;
 		setChanged();
@@ -40,6 +63,7 @@ public class DrawModel extends Observable {
 
 	public void reshapeFigure(int x1, int y1, int x2, int y2) {
 		if (drawingFigure != null) {
+			System.out.println("reshape:"+x1+" "+y1);
 			drawingFigure.reshape(x1, y1, x2, y2);
 			setChanged();
 			notifyObservers();

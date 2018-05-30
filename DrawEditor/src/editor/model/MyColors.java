@@ -15,8 +15,8 @@ public class MyColors {
 			Color.LIGHT_GRAY,
 			Color.ORANGE,
 			Color.PINK,
-			Color.YELLOW
-			
+			Color.YELLOW,
+			Color.GREEN
 			
 			
 	};
