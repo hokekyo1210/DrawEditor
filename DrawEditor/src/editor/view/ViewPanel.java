@@ -9,6 +9,7 @@ import java.util.Observer;
 import javax.swing.JPanel;
 
 import editor.controller.DrawController;
+import editor.controller.GridManager;
 import editor.model.DrawModel;
 import editor.model.Figure;
 
@@ -25,6 +26,7 @@ public class ViewPanel extends JPanel implements Observer {
 
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
+		GridManager.paintGrid(this, g);
 		ArrayList<Figure> fig = model.getFigures();
 		for (int i = 0; i < fig.size(); i++) {
 			Figure f = fig.get(i);
