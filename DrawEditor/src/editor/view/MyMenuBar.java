@@ -38,10 +38,13 @@ public class MyMenuBar extends JMenuBar{
 	public void setFileItems(JMenu menu) {
 		JMenuItem item1 = new JMenuItem("Open");
 		JMenuItem item2 = new JMenuItem("Save");
+		JMenuItem item3 = new JMenuItem("Save(Image)");
 		item1.addActionListener(controller);
 		item2.addActionListener(controller);
+		item3.addActionListener(controller);
 		menu.add(item1);
 		menu.add(item2);
+		menu.add(item3);
 	}
 	
 	public void setColorItems(JMenu menu) {

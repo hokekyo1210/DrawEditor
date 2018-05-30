@@ -19,7 +19,7 @@ public class DrawEditor extends JFrame {
 	private MyMenuBar menuBar;
 
 	public DrawEditor() {
-		model = new DrawModel();
+		model = new DrawModel(this);
 		cont = new DrawController(model);
 		view = new ViewPanel(model, cont);
 		menuBarController = new MenuBarController(model);

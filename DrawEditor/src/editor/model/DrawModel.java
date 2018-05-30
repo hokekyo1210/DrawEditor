@@ -1,6 +1,8 @@
 package editor.model;
 
 import java.awt.Color;
+import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -12,7 +14,9 @@ import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.Observable;
 
+import javax.imageio.ImageIO;
 import javax.swing.JFileChooser;
+import javax.swing.JFrame;
 
 import editor.model.Figure;
 import editor.model.MyFigureTypes.FigureType;
@@ -23,12 +27,15 @@ public class DrawModel extends Observable {
 	protected Figure drawingFigure;
 	protected Color currentColor;
 	protected FigureType currentFigureType;
+	
+	private JFrame frame;
 
-	public DrawModel() {
+	public DrawModel(JFrame frame) {
 		fig = new ArrayList<Figure>();
 		drawingFigure = null; // null は定数．C言語のNULLと同じで，何も入っていないという意味．
 		currentColor = Color.red; // 色はとりあえず赤で固定．容易に変更可能に拡張できます．
 		currentFigureType = FigureType.RECTANGLE;
+		this.frame = frame;
 	}
 
 	public ArrayList<Figure> getFigures() {
@@ -51,6 +58,17 @@ public class DrawModel extends Observable {
 		out.writeObject(fig);
 		out.flush();
 		out.close();
+	}
+	
+	public void saveAllFiguresAsImage(File targetFile) throws Exception {
+		BufferedImage image = new BufferedImage(frame.getWidth(), frame.getHeight(), BufferedImage.TYPE_INT_ARGB);
+		Graphics2D g2d = image.createGraphics();
+		g2d.setColor(Color.WHITE);
+		g2d.fillRect(0, 0, frame.getWidth(), frame.getHeight());
+		for(Figure figure : fig) {
+			figure.draw(g2d);
+		}
+		ImageIO.write(image, "png", targetFile);
 	}
 	
 	public void loadFigures(File file) throws Exception{

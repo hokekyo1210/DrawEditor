@@ -40,6 +40,15 @@ public class MenuBarController implements ActionListener{
 		
 	}
 	
+	private File setExtension(File file) {
+		String fileName = file.getName();
+		if(fileName.indexOf(".png") == -1) {
+			return new File(file.getAbsolutePath() + ".png");
+		}else {
+			return file;
+		}
+	}
+	
 	public void actionPerformedFromFile(ActionEvent e, JMenuItem menuItem) {
 		String itemName = menuItem.getText();
 		JFileChooser fileChooser = new JFileChooser();
@@ -59,6 +68,16 @@ public class MenuBarController implements ActionListener{
 			File targetFile = fileChooser.getSelectedFile();
 			try {
 				drawModel.saveAllFigures(targetFile);
+			} catch (Exception e1) {
+				e1.printStackTrace();
+			}
+		}else if(itemName.equalsIgnoreCase("Save(Image)")) {
+			int selected = fileChooser.showSaveDialog(null);
+			if(selected != JFileChooser.APPROVE_OPTION)return;
+			File targetFile = fileChooser.getSelectedFile();
+			targetFile = setExtension(targetFile);
+			try {
+				drawModel.saveAllFiguresAsImage(targetFile);
 			} catch (Exception e1) {
 				e1.printStackTrace();
 			}
