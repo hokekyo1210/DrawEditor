@@ -7,6 +7,7 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 
 import editor.model.DrawModel;
+import editor.view.GridManager;
 
 public class DrawController implements MouseListener, MouseMotionListener {
 	protected DrawModel model;

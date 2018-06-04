@@ -1,4 +1,4 @@
-package editor.controller;
+package editor.view;
 
 import java.awt.Graphics;
 import java.awt.Point;
