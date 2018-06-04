@@ -27,6 +27,7 @@ public class DrawModel extends Observable {
 	protected Figure drawingFigure;
 	protected Color currentColor;
 	protected FigureType currentFigureType;
+	protected int currentLineWidth;
 	
 	private JFrame frame;
 
@@ -51,6 +52,9 @@ public class DrawModel extends Observable {
 	}
 	public void setCurrentFigureType(FigureType figureType) {
 		this.currentFigureType = figureType;
+	}
+	public void setCurrentLineWidth(int lineWidth) {
+		this.currentLineWidth = lineWidth;
 	}
 	
 	public void saveAllFigures(File file) throws Exception {
@@ -83,16 +87,16 @@ public class DrawModel extends Observable {
 		Figure f;
 		switch (currentFigureType) {///図形の形をセットする
 			case RECTANGLE:
-				f = new RectangleFigure(x, y, 0, 0, currentColor);
+				f = new RectangleFigure(x, y, 0, 0, currentColor, currentLineWidth);
 				break;
 			case CIRCLE:
-				f = new CircleFigure(x, y, 0, 0, currentColor);
+				f = new CircleFigure(x, y, 0, 0, currentColor, currentLineWidth);
 				break;
 			case TRIANGLE:
-				f = new TriangleFigure(x, y, 0, 0, currentColor);
+				f = new TriangleFigure(x, y, 0, 0, currentColor, currentLineWidth);
 				break;
 			case LINE:
-				f = new LineFigure(x, y, 0, 0, currentColor);
+				f = new LineFigure(x, y, 0, 0, currentColor, currentLineWidth);
 				break;
 			default:
 				return;

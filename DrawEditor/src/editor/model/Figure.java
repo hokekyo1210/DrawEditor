@@ -6,14 +6,16 @@ import java.io.Serializable;
 
 public class Figure implements Serializable{
 	protected int x, y, width, height;
+	protected int lineWidth;
 	protected Color color;
 
-	public Figure(int x, int y, int w, int h, Color c) {
+	public Figure(int x, int y, int w, int h, Color c, int lineWidth) {
 		this.x = x;
 		this.y = y; // this.x, this.y はインスタンス変数を指します．
 		width = w;
 		height = h; // ローカル変数で同名の変数がある場合は，this
 		color = c; // を付けると，インスタンス変数を指すことになります．
+		this.lineWidth = lineWidth;
 	}
 
 	public void draw(Graphics g) {
@@ -27,6 +29,10 @@ public class Figure implements Serializable{
 	public void setLocation(int x, int y) {
 		this.x = x;
 		this.y = y;
+	}
+	
+	public void setLineWidth(int lineWidth) {
+		this.lineWidth = lineWidth;
 	}
 
 	public void reshape(int x1, int y1, int x2, int y2) {

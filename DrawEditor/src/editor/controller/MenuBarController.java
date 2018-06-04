@@ -1,6 +1,7 @@
 package editor.controller;
 
 import java.awt.Color;
+import java.awt.Desktop.Action;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -9,19 +10,24 @@ import javax.swing.JColorChooser;
 import javax.swing.JFileChooser;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JPopupMenu;
 
 import editor.model.DrawModel;
 import editor.model.MyColors;
 import editor.model.MyFigureTypes;
 import editor.model.MyFigureTypes.FigureType;
+import editor.view.GridManager;
+import editor.view.ViewPanel;
 
 public class MenuBarController implements ActionListener{
 	
 	private DrawModel drawModel;
+	private ViewPanel viewPanel;
 	
-	public MenuBarController(DrawModel drawModel) {
+	public MenuBarController(DrawModel drawModel, ViewPanel viewPanel) {
 		this.drawModel = drawModel;
+		this.viewPanel = viewPanel;
 	}
 
 	@Override
@@ -36,8 +42,12 @@ public class MenuBarController implements ActionListener{
 			actionPerformedFromColor(e, menuItem);
 		}else if(parentType.equalsIgnoreCase("Type")) {
 			actionPerformedFromFigureType(e,menuItem);
+		}else if(parentType.equalsIgnoreCase("Grid")) {
+			actionPerformedFromGrid(e,menuItem);
+		}else if(parentType.equalsIgnoreCase("Line")) {
+			actionPerformedFromLine(e, menuItem);
 		}
-		
+		viewPanel.repaint();
 	}
 	
 	private File setExtension(File file) {
@@ -46,6 +56,32 @@ public class MenuBarController implements ActionListener{
 			return new File(file.getAbsolutePath() + ".png");
 		}else {
 			return file;
+		}
+	}
+	
+	public void actionPerformedFromLine(ActionEvent e, JMenuItem menuItem) {
+		String itemName = menuItem.getText();
+		if(itemName.indexOf("other") != -1) {
+			itemName = JOptionPane.showInputDialog("数値を入力してください。");
+		}
+		try {
+			int lineWidth = Integer.parseInt(itemName);
+			drawModel.setCurrentLineWidth(lineWidth);
+		}catch (Exception exception) {
+			exception.printStackTrace();
+		}
+	}
+	
+	public void actionPerformedFromGrid(ActionEvent e, JMenuItem menuItem) {
+		String itemName = menuItem.getText();
+		if(itemName.indexOf("other") != -1) {
+			itemName = JOptionPane.showInputDialog("数値を入力してください。");
+		}
+		try {
+			int gridSize = Integer.parseInt(itemName);
+			GridManager.setGridSize(gridSize);
+		}catch (Exception exception) {
+			exception.printStackTrace();
 		}
 	}
 	

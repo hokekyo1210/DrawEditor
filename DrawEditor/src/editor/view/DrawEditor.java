@@ -22,7 +22,7 @@ public class DrawEditor extends JFrame {
 		model = new DrawModel(this);
 		cont = new DrawController(model);
 		view = new ViewPanel(model, cont);
-		menuBarController = new MenuBarController(model);
+		menuBarController = new MenuBarController(model, view);
 		menuBar = new MyMenuBar(menuBarController);
 		this.setBackground(Color.black);
 		this.setTitle("Draw Editor");
