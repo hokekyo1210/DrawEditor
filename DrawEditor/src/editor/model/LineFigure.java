@@ -15,5 +15,15 @@ public class LineFigure extends Figure{
 		g.setColor(color);
 		g.drawLine(x, y, x+width, y+height);
 	}
+	
+	public void reshape(int x1, int y1, int x2, int y2) {
+		int newx = x1;
+		int newy = y1;
+		int neww = x2 - x1;
+		int newh = y2 - y1;
+		setLocation(newx, newy);
+		setSize(neww, newh);
+	}
+	
 
 }
