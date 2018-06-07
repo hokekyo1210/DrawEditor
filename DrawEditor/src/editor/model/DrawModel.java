@@ -57,6 +57,12 @@ public class DrawModel extends Observable {
 		this.currentLineWidth = lineWidth;
 	}
 	
+	public void clearAllFigure() {
+		fig.clear();
+		setChanged();
+		notifyObservers();
+	}
+	
 	public void saveAllFigures(File file) throws Exception {
 		ObjectOutput out = new ObjectOutputStream(new FileOutputStream(file));
 		out.writeObject(fig);

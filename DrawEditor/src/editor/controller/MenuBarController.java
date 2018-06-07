@@ -6,6 +6,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 
+import javax.management.modelmbean.ModelMBean;
 import javax.swing.JColorChooser;
 import javax.swing.JFileChooser;
 import javax.swing.JMenu;
@@ -117,6 +118,10 @@ public class MenuBarController implements ActionListener{
 			} catch (Exception e1) {
 				e1.printStackTrace();
 			}
+		}else if(itemName.equalsIgnoreCase("New")) {
+			drawModel.clearAllFigure();
+		}else if(itemName.equalsIgnoreCase("Exit")) {
+			System.exit(0);
 		}
 	}
 	
