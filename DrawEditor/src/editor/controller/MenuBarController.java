@@ -21,6 +21,9 @@ import editor.model.MyFigureTypes.FigureType;
 import editor.view.GridManager;
 import editor.view.ViewPanel;
 
+/*
+ * メニューアイテムのイベントを処理する
+ */
 public class MenuBarController implements ActionListener{
 	
 	private DrawModel drawModel;
@@ -37,6 +40,8 @@ public class MenuBarController implements ActionListener{
 		JMenuItem menuItem = (JMenuItem) e.getSource();
 		JMenu parent = (JMenu)((JPopupMenu)menuItem.getParent()).getInvoker();
 		String parentType = parent.getText();
+		
+		///ここでそれぞれの処理に分岐する
 		if(parentType.equalsIgnoreCase("File")) {
 			actionPerformedFromFile(e, menuItem);
 		}else if(parentType.equalsIgnoreCase("Color")) {
@@ -51,6 +56,9 @@ public class MenuBarController implements ActionListener{
 		viewPanel.repaint();
 	}
 	
+	/*
+	 * fileの名前に".png"が含まれなければ追加する
+	 */
 	private File setExtension(File file) {
 		String fileName = file.getName();
 		if(fileName.indexOf(".png") == -1) {
@@ -60,6 +68,9 @@ public class MenuBarController implements ActionListener{
 		}
 	}
 	
+	/*
+	 * 線の太さに関するイベント
+	 */
 	public void actionPerformedFromLine(ActionEvent e, JMenuItem menuItem) {
 		String itemName = menuItem.getText();
 		if(itemName.indexOf("other") != -1) {
@@ -73,10 +84,15 @@ public class MenuBarController implements ActionListener{
 		}
 	}
 	
+	/*
+	 * グリッド機能に関するイベント
+	 */
 	public void actionPerformedFromGrid(ActionEvent e, JMenuItem menuItem) {
 		String itemName = menuItem.getText();
 		if(itemName.indexOf("other") != -1) {
 			itemName = JOptionPane.showInputDialog("数値を入力してください。");
+		}else if(itemName.indexOf("disable") != -1) {
+			itemName = "0";
 		}
 		try {
 			int gridSize = Integer.parseInt(itemName);
@@ -86,6 +102,9 @@ public class MenuBarController implements ActionListener{
 		}
 	}
 	
+	/*
+	 * open, save, clear, exit機能などに関するイベント
+	 */
 	public void actionPerformedFromFile(ActionEvent e, JMenuItem menuItem) {
 		String itemName = menuItem.getText();
 		JFileChooser fileChooser = new JFileChooser();
@@ -125,6 +144,9 @@ public class MenuBarController implements ActionListener{
 		}
 	}
 	
+	/*
+	 * 色を変更する機能に関するイベント
+	 */
 	public void actionPerformedFromColor(ActionEvent e, JMenuItem menuItem) {
 		Color color;
 		if(menuItem.getName().equalsIgnoreCase("other")) {
@@ -136,6 +158,9 @@ public class MenuBarController implements ActionListener{
 		drawModel.setCurrentColor(color);
 	}
 	
+	/*
+	 * 図形を変更する機能に関するイベント
+	 */
 	public void actionPerformedFromFigureType(ActionEvent e, JMenuItem menuItem) {
 		String figureTypeName = menuItem.getText();
 		FigureType figureType = FigureType.valueOf(figureTypeName);

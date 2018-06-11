@@ -22,8 +22,12 @@ import editor.model.Figure;
 import editor.model.MyFigureTypes.FigureType;
 import editor.model.RectangleFigure;
 
+/*
+ * 図形に関する変更を通達するObservable
+ * および現在描画している図形の情報を保持するクラス
+ */
 public class DrawModel extends Observable {
-	protected ArrayList<Figure> fig;
+	protected ArrayList<Figure> fig; //Figureオブジェクトが格納される動的配列
 	protected Figure drawingFigure;
 	protected Color currentColor;
 	protected FigureType currentFigureType;
@@ -35,7 +39,7 @@ public class DrawModel extends Observable {
 		fig = new ArrayList<Figure>();
 		drawingFigure = null; // null は定数．C言語のNULLと同じで，何も入っていないという意味．
 		currentColor = Color.red; // 色はとりあえず赤で固定．容易に変更可能に拡張できます．
-		currentFigureType = FigureType.RECTANGLE;
+		currentFigureType = FigureType.RECTANGLE; //初期は長方形
 		this.frame = frame;
 	}
 
@@ -57,12 +61,18 @@ public class DrawModel extends Observable {
 		this.currentLineWidth = lineWidth;
 	}
 	
+	/*
+	 * figリストからすべてのFigureオブジェクトを削除する
+	 */
 	public void clearAllFigure() {
 		fig.clear();
 		setChanged();
 		notifyObservers();
 	}
 	
+	/*
+	 * file(テキストファイル)にfigリストに含まれるすべてのFigureオブジェクトを保存する
+	 */
 	public void saveAllFigures(File file) throws Exception {
 		ObjectOutput out = new ObjectOutputStream(new FileOutputStream(file));
 		out.writeObject(fig);
@@ -70,6 +80,9 @@ public class DrawModel extends Observable {
 		out.close();
 	}
 	
+	/*
+	 * targetFile(画像ファイル)にfigリストに含まれるすべてのFigureオブジェクトを描画し、pngイメージとして保存する
+	 */
 	public void saveAllFiguresAsImage(File targetFile) throws Exception {
 		BufferedImage image = new BufferedImage(frame.getWidth(), frame.getHeight(), BufferedImage.TYPE_INT_ARGB);
 		Graphics2D g2d = image.createGraphics();
@@ -81,6 +94,9 @@ public class DrawModel extends Observable {
 		ImageIO.write(image, "png", targetFile);
 	}
 	
+	/*
+	 * file(テキストファイル)に含まれるすべてのFigureオブジェクトの情報を入力し、figリストに入れる
+	 */
 	public void loadFigures(File file) throws Exception{
 		ObjectInputStream in=new ObjectInputStream(new FileInputStream(file));
 		fig = (ArrayList<Figure>)in.readObject();
@@ -89,6 +105,10 @@ public class DrawModel extends Observable {
 		notifyObservers();
 	}
 
+	/*
+	 * ドラッグの始点が(x,y)である各種Figureオブジェクト(インスタンス)を作成し、figリストに追加する
+	 * 作成されたことを全てのObserverに通達する
+	 */
 	public void createFigure(int x, int y) {
 		Figure f;
 		switch (currentFigureType) {///図形の形をセットする
@@ -114,6 +134,10 @@ public class DrawModel extends Observable {
 		notifyObservers();
 	}
 
+	/*
+	 * 現在描画しているFigureオブジェクトのreshapeメソッドを呼ぶ
+	 * また、すべてのObserverに変更を通達する
+	 */
 	public void reshapeFigure(int x1, int y1, int x2, int y2) {
 		if (drawingFigure != null) {
 			drawingFigure.reshape(x1, y1, x2, y2);

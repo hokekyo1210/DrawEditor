@@ -5,6 +5,9 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 
+/*
+ * 三角形図形の情報を保持するクラス
+ */
 public class TriangleFigure extends Figure{
 	public TriangleFigure(int x, int y, int w, int h, Color c, int lineWidth) {
 		super(x, y, w, h, c, lineWidth);
@@ -12,6 +15,9 @@ public class TriangleFigure extends Figure{
 		// superで親のコンストラクタを呼び出すだけ．
 	}
 
+	/*
+	 * 三角形図形を描画するクラス
+	 */
 	public void draw(Graphics g) {
 		Graphics2D g2d = (Graphics2D)g;
 		g2d.setStroke(new BasicStroke(lineWidth));

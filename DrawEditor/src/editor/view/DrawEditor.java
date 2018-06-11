@@ -10,6 +10,11 @@ import editor.controller.MenuBarController;
 import editor.model.DrawModel;
 import editor.view.ViewPanel;
 
+/*
+ * JFrameを継承したクラス
+ * MVCを繋ぎ合わせる役目を持つ
+ * メニューバーを持つ
+ */
 public class DrawEditor extends JFrame {
 	private DrawModel model;
 	private ViewPanel view;

@@ -12,6 +12,9 @@ import editor.controller.DrawController;
 import editor.model.DrawModel;
 import editor.model.Figure;
 
+/*
+ * JPanelを継承したクラス、図形やグリッドを描画するパネル
+ */
 public class ViewPanel extends JPanel implements Observer {
 	protected DrawModel model;
 
@@ -22,7 +25,10 @@ public class ViewPanel extends JPanel implements Observer {
 		model = m;
 		model.addObserver(this);
 	}
-
+	
+	/*
+	 * 図形を描画する
+	 */
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		GridManager.paintGrid(this, g);
@@ -33,6 +39,9 @@ public class ViewPanel extends JPanel implements Observer {
 		}
 	}
 
+	/*
+	 * observerとしてDrawModelからupdateが呼び出される
+	 */
 	public void update(Observable o, Object arg) {
 		repaint();
 	}

@@ -9,6 +9,9 @@ import java.awt.event.MouseMotionListener;
 import editor.model.DrawModel;
 import editor.view.GridManager;
 
+/*
+ * マウスの操作に関するイベントを処理する
+ */
 public class DrawController implements MouseListener, MouseMotionListener {
 	protected DrawModel model;
 	protected int dragStartX, dragStartY;

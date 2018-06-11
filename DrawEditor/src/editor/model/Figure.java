@@ -4,6 +4,9 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.io.Serializable;
 
+/*
+ * 図形の情報を保持する基本クラス
+ */
 public class Figure implements Serializable{
 	protected int x, y, width, height;
 	protected int lineWidth;
@@ -35,6 +38,9 @@ public class Figure implements Serializable{
 		this.lineWidth = lineWidth;
 	}
 
+	/*
+	 * (x1,y1)および(x2,y2)を内包する最小の長方形(バウンディングボックス)を計算する
+	 */
 	public void reshape(int x1, int y1, int x2, int y2) {
 		int newx = Math.min(x1, x2);
 		int newy = Math.min(y1, y2);

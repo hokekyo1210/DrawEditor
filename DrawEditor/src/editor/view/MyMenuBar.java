@@ -11,6 +11,10 @@ import editor.model.MyColors;
 import editor.model.MyFigureTypes;
 import editor.model.MyFigureTypes.FigureType;
 
+/*
+ * JMenuBarを継承したクラス
+ * メニューバーにアイテムを追加するメソッドなどを持つ
+ */
 public class MyMenuBar extends JMenuBar{
 	
 	private MenuBarController controller;
@@ -19,6 +23,11 @@ public class MyMenuBar extends JMenuBar{
 		super();
 		this.controller = controller;
 		initMenuBar();
+	}
+	
+	public void addMenuItem(JMenuItem menuItem, JMenu menu) {
+		menuItem.addActionListener(controller);
+		menu.add(menuItem);
 	}
 	
 	public void initMenuBar() {
@@ -42,76 +51,43 @@ public class MyMenuBar extends JMenuBar{
 	}
 	
 	public void setLineItems(JMenu menu) {
-		JMenuItem item1 = new JMenuItem("1");
-		JMenuItem item2 = new JMenuItem("2");
-		JMenuItem item3 = new JMenuItem("4");
-		JMenuItem item4 = new JMenuItem("8");
-		JMenuItem item5 = new JMenuItem("16");
-		JMenuItem item6 = new JMenuItem("others...");
-		item1.addActionListener(controller);
-		item2.addActionListener(controller);
-		item3.addActionListener(controller);
-		item4.addActionListener(controller);
-		item5.addActionListener(controller);
-		item6.addActionListener(controller);
-		menu.add(item1);
-		menu.add(item2);
-		menu.add(item3);
-		menu.add(item4);
-		menu.add(item5);
-		menu.add(item6);
+		addMenuItem(new JMenuItem("1"), menu);
+		addMenuItem(new JMenuItem("2"), menu);
+		addMenuItem(new JMenuItem("4"), menu);
+		addMenuItem(new JMenuItem("8"), menu);
+		addMenuItem(new JMenuItem("16"), menu);
+		addMenuItem(new JMenuItem("others..."), menu);
 	}
 	
 	public void setGridItems(JMenu menu) {
-		JMenuItem item1 = new JMenuItem("10");
-		JMenuItem item2 = new JMenuItem("20");
-		JMenuItem item3 = new JMenuItem("40");
-		JMenuItem item4 = new JMenuItem("80");
-		JMenuItem item6 = new JMenuItem("others...");
-		item1.addActionListener(controller);
-		item2.addActionListener(controller);
-		item3.addActionListener(controller);
-		item4.addActionListener(controller);
-		item6.addActionListener(controller);
-		menu.add(item1);
-		menu.add(item2);
-		menu.add(item3);
-		menu.add(item4);
-		menu.add(item6);
+		addMenuItem(new JMenuItem("disable"), menu);
+		addMenuItem(new JMenuItem("10"), menu);
+		addMenuItem(new JMenuItem("20"), menu);
+		addMenuItem(new JMenuItem("40"), menu);
+		addMenuItem(new JMenuItem("80"), menu);
+		addMenuItem(new JMenuItem("others..."), menu);
 	}
 	
 	public void setFileItems(JMenu menu) {
-		JMenuItem item1 = new JMenuItem("Open");
-		JMenuItem item2 = new JMenuItem("Save");
-		JMenuItem item3 = new JMenuItem("Save(Image)");
-		JMenuItem item4 = new JMenuItem("New");
-		JMenuItem item5 = new JMenuItem("Exit");
-		item1.addActionListener(controller);
-		item2.addActionListener(controller);
-		item3.addActionListener(controller);
-		item4.addActionListener(controller);
-		item5.addActionListener(controller);
-		menu.add(item4);
-		menu.add(item1);
-		menu.add(item2);
-		menu.add(item3);
-		menu.add(item5);
+		addMenuItem(new JMenuItem("New"), menu);
+		addMenuItem(new JMenuItem("Open"), menu);
+		addMenuItem(new JMenuItem("Save"), menu);
+		addMenuItem(new JMenuItem("Save(Image)"), menu);
+		addMenuItem(new JMenuItem("Exit"), menu);
 	}
 	
 	public void setColorItems(JMenu menu) {
-		Color[] colors = MyColors.getColors();
+		Color[] colors = MyColors.getAllColors();
 		for(int i = 0; i<colors.length; i++) {
 			Color color = colors[i];
 			JMenuItem menuItem = new JMenuItem("");
 			menuItem.setName(i+"");
 			menuItem.setBackground(color);
-			menuItem.addActionListener(controller);
-			menu.add(menuItem);
+			addMenuItem(menuItem, menu);
 		}
 		JMenuItem menuItem = new JMenuItem("others...");
 		menuItem.setName("other");
-		menuItem.addActionListener(controller);
-		menu.add(menuItem);
+		addMenuItem(menuItem, menu);
 	}
 	
 	public void setTypeItems(JMenu menu) {
@@ -120,8 +96,7 @@ public class MyMenuBar extends JMenuBar{
 			FigureType figureType = figureTypes[i];
 			JMenuItem menuItem = new JMenuItem(figureType.name());
 			menuItem.setName(i+"");
-			menuItem.addActionListener(controller);
-			menu.add(menuItem);
+			addMenuItem(menuItem, menu);
 		}
 	}
 
