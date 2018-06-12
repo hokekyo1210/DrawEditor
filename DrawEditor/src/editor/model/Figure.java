@@ -33,10 +33,6 @@ public class Figure implements Serializable{
 		this.x = x;
 		this.y = y;
 	}
-	
-	public void setLineWidth(int lineWidth) {
-		this.lineWidth = lineWidth;
-	}
 
 	/*
 	 * (x1,y1)および(x2,y2)を内包する最小の長方形(バウンディングボックス)を計算する
